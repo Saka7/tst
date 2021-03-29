@@ -167,6 +167,7 @@ const formatUntouchedWord = (wholeWord = false) => {
 
 const handleBackspace = ctrlKey => {
     if (ctrlKey) {
+        charsTyped = Math.max(charsTyped - current.word.length, 0);
         formatUntouchedWord(true);
         if (currentState.word > 0) {
             if (currentState.char === 0) {
@@ -180,6 +181,7 @@ const handleBackspace = ctrlKey => {
         }
         currentState.char = 0
     } else if (!currentState.incorrect) {
+        charsTyped = Math.max(charsTyped - 1, 0);
         formatUntouchedWord();
         if (currentState.char > 0) {
             currentState.char--;
@@ -251,16 +253,17 @@ const handleInput = key => {
 const startTimer = (time = defaultTime) => {
     timerStarted = true;
 
-    setInterval(() => {
+    const interval = setInterval(() => {
         timeElement.innerText = String(time);
         if (time > 0) {
             time--;
+            const cpm = Math.round(charsTyped * 60 / (defaultTime - time));
+            cpmElement.innerText = String(cpm);
         } else {
-            clearInterval();
+            clearInterval(interval);
             timerStarted = false;
+            charsTyped = 0;
         }
-        const cpm = Math.round(charsTyped * 60 / (defaultTime - time));
-        cpmElement.innerText = String(cpm);
     }, 1000);
 };
 
