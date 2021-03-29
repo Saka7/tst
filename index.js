@@ -7,6 +7,7 @@ const KEYS = {
     SPACE: ' ',
 }
 
+const wordsUrl = 'https://saka7.github.io/tst/words.json';
 const numOfRows = 2;
 const charInRow = 42;
 const defaultTime = 60;
@@ -32,6 +33,7 @@ const current = {
 
 let charsTyped = 0;
 let timerStarted = false;
+let rows = [];
 
 const splitByRows = (words, charsInRow) => {
     const result = [];
@@ -278,10 +280,31 @@ const observeInput = event => {
     }
 };
 
-const rows = splitByRows(words, charInRow);
+const shuffle = array => {
+    let currentIndex = array.length;
 
-function main() {
+    while (0 !== currentIndex) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex --;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+const fetchWords = async url => {
+    const response = await fetch(url);
+    const data = await response.json();
+    return shuffle(data);
+}
+
+
+async function main() {
+    const words = await fetchWords(wordsUrl);
+
+    rows = splitByRows(words, charInRow);
     renderRows(rows, numOfRows);
+
     document.querySelector('body').addEventListener('keydown', observeInput);
 }
 

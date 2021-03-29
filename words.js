@@ -1,8 +1,0 @@
-// TODO
-const words = [
-    "ability", "able", "about", "above", "accept", "according", "account", "across", "act", "action", "activity",
-    "actually", "add", "address", "administration", "admit", "adult", "affect", "after", "again", "against",
-    "age", "agency", "agent", "ago", "agree", "agreement", "ahead", "air", "all", "allow", "almost", "alone",
-    "along", "already", "also", "although", "always", "American", "among", "amount", "analysis", "and", "animal",
-    "another", "answer", "any", "anyone", "anything", "appear", "apply", "approach", "area", "argue", "arm",
-];
