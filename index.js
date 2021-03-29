@@ -9,7 +9,7 @@ const KEYS = {
 
 const wordsUrl = 'https://saka7.github.io/tst/words.json';
 const numOfRows = 2;
-const charInRow = 42;
+const charInRow = 40;
 const defaultTime = 60;
 
 const currentState = {
