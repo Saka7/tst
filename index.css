@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    transition: 0.15s ease;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
     text-align: center;
     line-height: 2.5rem;
     box-shadow: 2px 2px 5px gray;
+    animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .cpm-container {
@@ -32,4 +34,19 @@ body {
     border-radius: 5px;
     padding: 2px;
     color: #212121;
+}
+
+.row {
+    animation: slide-top 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-top {
+    0% {
+        transform: translateY(32px);
+        opacity: 80%;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 100%;
+    }
 }

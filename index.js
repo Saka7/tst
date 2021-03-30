@@ -71,6 +71,7 @@ const renderRow = (rows, index) => {
 
     const row = document.createElement('div');
     row.setAttribute('id', `row${index}`);
+    row.setAttribute('class', 'row');
 
     for (let i = 0; i < rows[index].length; i++) {
         const word = document.createElement('span');
