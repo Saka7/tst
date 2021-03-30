@@ -5,7 +5,16 @@ const cpmElement = document.getElementById('cpm');
 const KEYS = {
     BACKSPACE: 'Backspace',
     SPACE: ' ',
-}
+};
+
+const COLORS = {
+    CURRENT_WORD: '#FFFF8D',
+    CURRENT_CHAR: '#FFA000',
+    CORRECT_WORD: '#43A047',
+    INCORRECT_WORD: '#FFAB91',
+    TYPED_CHAR: '#757575',
+    CHAR: '#212121',
+};
 
 const wordsUrl = 'https://saka7.github.io/tst/words.json';
 const numOfRows = 2;
@@ -109,13 +118,13 @@ const formatCurrentWord = () => {
     const currentChar = currentWord.querySelector(`#char${currentState.char}`);
 
     if (currentChar) {
-        currentWord.style.backgroundColor = 'yellow';
+        currentWord.style.backgroundColor = COLORS.CURRENT_WORD;
         currentChar.style.color = 'white';
-        currentChar.style.backgroundColor = 'orange';
+        currentChar.style.backgroundColor = COLORS.CURRENT_CHAR;
 
         if (currentState.char > 0) {
             const prevChar = currentWord.querySelector(`#char${currentState.char - 1}`);
-            prevChar.style.color = 'gray';
+            prevChar.style.color = COLORS.TYPED_CHAR;
             prevChar.style.background = 'none';
         }
     }
@@ -129,7 +138,7 @@ const formatCorrectWord = () => {
     currentWord.style.background = 'none';
 
     chars.forEach(char => {
-        char.style.color = 'green';
+        char.style.color = COLORS.CORRECT_WORD;
         char.style.background = 'none';
     })
 }
@@ -137,7 +146,7 @@ const formatCorrectWord = () => {
 const formatIncorrectWord = () => {
     const currentRow = document.getElementById(`row${currentState.row}`);
     const currentWord = currentRow.querySelector(`#word${currentState.word}`);
-    currentWord.style.backgroundColor = 'red';
+    currentWord.style.backgroundColor = COLORS.INCORRECT_WORD;
 }
 
 const formatUntouchedWord = (wholeWord = false) => {
