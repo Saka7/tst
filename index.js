@@ -91,6 +91,7 @@ const renderRow = (rows, index) => {
 
         const spaceContainer = document.createElement('span');
         spaceContainer.appendChild(space);
+        spaceContainer.setAttribute('id', `space${i}`);
 
         row.appendChild(word);
         row.appendChild(spaceContainer);
@@ -112,7 +113,7 @@ const renderRows = (rows, numOfRows) => {
     formatCurrentWord();
 }
 
-const formatCurrentWord = () => {
+const formatCurrentWord = (backspace = false) => {
     const currentRow = document.getElementById(`row${currentState.row}`);
     const currentWord = currentRow.querySelector(`#word${currentState.word}`);
     const currentChar = currentWord.querySelector(`#char${currentState.char}`);
@@ -121,12 +122,20 @@ const formatCurrentWord = () => {
         currentWord.style.backgroundColor = COLORS.CURRENT_WORD;
         currentChar.style.color = 'white';
         currentChar.style.backgroundColor = COLORS.CURRENT_CHAR;
+    } else {
+        const currentSpace = currentRow.querySelector(`#space${currentState.word}`);
+        currentSpace.style.backgroundColor = COLORS.CURRENT_CHAR;
+    }
 
-        if (currentState.char > 0) {
-            const prevChar = currentWord.querySelector(`#char${currentState.char - 1}`);
-            prevChar.style.color = COLORS.TYPED_CHAR;
-            prevChar.style.background = 'none';
-        }
+    if (currentState.char > 0 && !backspace) {
+        const prevChar = currentWord.querySelector(`#char${currentState.char - 1}`);
+        prevChar.style.color = COLORS.TYPED_CHAR;
+        prevChar.style.background = 'none';
+    } else {
+        const row = currentState.word === 0 ? Math.max(currentState.row - 1, 0) : currentState.row;
+        const word = currentState.word > 0 ? currentState.word - 1 : rows[Math.max(currentState.row - 1, 0)].length - 1;
+        const currentSpace = document.querySelector(`#row${row} #space${word}`);
+        currentSpace.style.backgroundColor = 'transparent'
     }
 }
 
@@ -206,7 +215,7 @@ const handleBackspace = ctrlKey => {
         }
     }
     currentState.incorrect = false;
-    formatCurrentWord();
+    formatCurrentWord(true);
 };
 
 const handleSpace = () => {
@@ -297,7 +306,7 @@ const shuffle = array => {
 
     while (0 !== currentIndex) {
         const randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex --;
+        currentIndex--;
         [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
 

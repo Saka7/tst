@@ -4,7 +4,8 @@
 - No dependencies
 - No frameworks
 - No bells and whistles
-- under 20kb
+- Simple as a door
+- Under 20kb (not minified)
 
 
 ## License
